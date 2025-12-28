@@ -5,7 +5,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const allPets = await Pet.find()
-        res.status(200).json(allPets)
+        res.status(200).json({allPets})
     } catch (err) {
         console.log(err.message)
         res.status(500).json({err: 'Failed to Fetch Data'})        
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const onePet = await Pet.findById(req.params.id)
-        res.status(200).json(onePet)
+        res.status(200).json({onePet})
     } catch (err) {
         console.log(err.message)
         res.status(500).json({err: 'Failed to Fetch Data'})        
@@ -31,6 +31,16 @@ router.post('/', async (req, res) => {
         res.status(422).json({err: 'Failed to Create'})
     }
 
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        Pet.findByIdAndDelete(req.params.id)
+        res.status(410).json({msg: 'Deleted'})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({err: 'Failed to Delete'})
+    }
 })
 
 module.exports = router;
