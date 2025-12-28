@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
-
+const Pets = require('./controllers/pets')
 
 try{
     mongoose.connect(process.env.MONGODB_URI);
@@ -17,6 +17,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes go here
+app.use('/pets', Pets);
 
 
 
