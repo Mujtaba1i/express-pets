@@ -12,6 +12,15 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        const onePet = await Pet.findById(req.params.id)
+        res.status(200).json(onePet)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({err: 'Failed to Fetch Data'})        
+    }
+})
 
 router.post('/', async (req, res) => {
     try {
