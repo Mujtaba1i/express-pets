@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const {id} = req.params
-        Pet.findByIdAndDelete(id)
+        await Pet.findByIdAndDelete(id)
         res.status(410).json({msg: 'Deleted'})
     } catch (err) {
         console.log(err.message)
