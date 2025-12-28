@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
-const Pets = require('./controllers/pets')
+const petCtrl = require('./controllers/pets')
 
 try{
     mongoose.connect(process.env.MONGODB_URI);
@@ -13,11 +13,13 @@ catch(err){
     console.log('Ran into an error: ' +err)
 }
 
+// Middleware
 app.use(morgan('dev'));
 app.use(express.json());
 
+
 // Routes go here
-app.use('/pets', Pets);
+app.use('/pets', petCtrl);
 
 
 
