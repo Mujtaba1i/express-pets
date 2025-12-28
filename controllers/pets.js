@@ -14,8 +14,13 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const onePet = await Pet.findById(req.params.id)
-        res.status(200).json({onePet})
+        const {id} = req.params
+        const onePet = await Pet.findById(id)
+        if (!onePet) {
+            res.status(404).json({err: 'Pet Not Found'})
+        } else {
+            res.status(200).json({onePet})
+        }
     } catch (err) {
         console.log(err.message)
         res.status(500).json({err: 'Failed to Fetch Data'})        
@@ -35,7 +40,8 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        Pet.findByIdAndDelete(req.params.id)
+        const {id} = req.params
+        Pet.findByIdAndDelete(id)
         res.status(410).json({msg: 'Deleted'})
     } catch (err) {
         console.log(err.message)
