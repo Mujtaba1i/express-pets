@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config()
 const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 const petCtrl = require('./controllers/pets')
 
@@ -14,6 +15,7 @@ catch(err){
 }
 
 // Middleware
+app.use(cors())
 app.use(morgan('dev'));
 app.use(express.json());
 
