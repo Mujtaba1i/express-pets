@@ -38,6 +38,17 @@ router.post('/', async (req, res) => {
 
 })
 
+router.put('/:id', async (req, res) => {
+    try {
+        const {id} = req.params
+        const onePet = await Pet.findByIdAndUpdate(id, req.body, {new:true})
+        res.status(202).json(onePet)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({err: 'Failed to Fetch Data'})        
+    }
+})
+
 router.delete('/:id', async (req, res) => {
     try {
         const {id} = req.params
