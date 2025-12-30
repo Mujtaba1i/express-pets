@@ -41,6 +41,8 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const {id} = req.params
+        if (req.body.name === '') throw new Error ('No Name')
+        if (req.body.age === '') throw new Error ('No age')
         const onePet = await Pet.findByIdAndUpdate(id, req.body, {new:true})
         res.status(202).json(onePet)
     } catch (err) {
@@ -53,7 +55,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const {id} = req.params
         await Pet.findByIdAndDelete(id)
-        res.status(410).json({msg: 'Deleted'})
+        res.status(200).json({msg: 'Deleted'})
     } catch (err) {
         console.log(err.message)
         res.status(500).json({err: 'Failed to Delete'})
