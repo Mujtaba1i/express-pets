@@ -8,7 +8,7 @@ const petCtrl = require('./controllers/pets')
 
 try{
     mongoose.connect(process.env.MONGODB_URI);
-    mongoose.connection.on('connected', () => console.log(`Connected to MongoDB ${mongoose.connection.name}`));
+    mongoose.connection.on('connected', () => console.log(`Connected to MongoDB ${mongoose.connection.name}`))
 }
 catch(err){
     console.log('Ran into an error: ' +err)
@@ -26,6 +26,5 @@ app.use('/pets', petCtrl);
 
 
 
-app.listen(3000, () => {
-  console.log('Listing on port 3000');
-});
+
+app.listen(3000, () => console.log('Listing on port 3000'))
